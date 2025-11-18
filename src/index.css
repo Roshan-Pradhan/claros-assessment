@@ -14,6 +14,19 @@
 
 @theme {
   --font-poppins: "Poppins", system-ui, sans-serif;
+
+  --color-primary-50: #e6f0f9;
+  --color-primary-100: #cce1f3;
+  --color-primary-200: #99c3e7;
+  --color-primary-300: #66a5db;
+  --color-primary-400: #3377cf;
+  --color-primary-500: #00416a;
+  --color-primary-600: #00365b;
+  --color-primary-700: #002a4a;
+  --color-primary-800: #001f3a;
+  --color-primary-900: #001229;
+
+  --shadow-primary: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 @theme inline {
@@ -28,4 +41,16 @@
       background 0.3s ease,
       color 0.3s ease;
   }
+}
+
+.sidebar-link-base {
+  @apply flex rounded p-2 transition-all;
+}
+
+.sidebar-link-hover {
+  @apply hover:bg-primary-100;
+}
+
+.sidebar-link-active {
+  @apply bg-primary-500 font-medium text-white;
 }
