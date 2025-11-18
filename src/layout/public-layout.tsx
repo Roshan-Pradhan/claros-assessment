@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { cn } from "../utils/cn";
-import { SidebarLink } from "../components/sidebarlink";
+import { cn } from "@/utils/cn";
 import { SideBarMenu } from "./layout-constants";
+import { SidebarLink } from "@/components/sidebarlink";
 
 const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

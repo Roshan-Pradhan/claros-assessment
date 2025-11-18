@@ -49,12 +49,12 @@ const Pagination: React.FC<PaginationProps> = ({
         activeClassName="bg-primary-600 text-white border-primary-600 hover:bg-primary-700"
         breakLabel="..."
         nextLabel={
-          <span className="flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 px-3 py-1 hover:bg-gray-100">
+          <span className="pagination-label">
             Next <ChevronRight size={16} />
           </span>
         }
         previousLabel={
-          <span className="flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 px-3 py-1 hover:bg-gray-100">
+          <span className="pagination-label">
             <ChevronLeft size={16} /> Prev
           </span>
         }
@@ -77,7 +77,7 @@ const Pagination: React.FC<PaginationProps> = ({
             const value = Number((e.target as HTMLInputElement).value);
             goToPage(value - 1);
           }}
-          className="w-16 rounded-md border px-2 py-1 text-sm shadow-sm focus:ring-2 focus:ring-primary-500"
+          className="input-focus w-16 rounded-md border px-2 py-1 text-sm shadow-sm"
         />
       </div>
     </div>

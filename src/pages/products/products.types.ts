@@ -13,6 +13,13 @@ export type ProductsType = {
   availabilityStatus: AvailabilityStatus;
 };
 
+export type ProductsApiResponse = {
+  products: ProductsType[];
+  total: number;
+  limit: number;
+  skip: number;
+};
+
 export const statusClassMap: Record<AvailabilityStatus, string> = {
   "In Stock": "text-green-600",
   "Low Stock": "text-yellow-600",
