@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import LayoutWrapper from "../layout/layout-wrapper";
-import Books from "../pages/books/books";
+import Products from "../pages/products/products";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
         element: <div>Home Page</div>,
       },
       {
-        path: "/books",
-        element: <Books />,
+        path: "/products",
+        element: <Products />,
       },
     ],
   },
