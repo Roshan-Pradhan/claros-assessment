@@ -25,7 +25,7 @@ const router = createBrowserRouter([
 
 const AppRouter = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <RouterProvider router={router} />
     </Suspense>
   );
