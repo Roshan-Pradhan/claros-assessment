@@ -54,3 +54,11 @@
 .sidebar-link-active {
   @apply bg-primary-500 font-medium text-white;
 }
+
+.input-focus {
+  @apply focus:ring-1 focus:ring-primary-500 focus:outline-none;
+}
+
+.pagination-label {
+  @apply flex cursor-pointer items-center gap-1 rounded-md border border-gray-300 px-3 py-1 hover:bg-gray-100;
+}

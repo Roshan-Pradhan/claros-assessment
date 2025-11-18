@@ -1,5 +1,5 @@
+import { cn } from "@/utils/cn";
 import { NavLink } from "react-router";
-import { cn } from "../utils/cn";
 
 type SidebarLinkProps = {
   to: string;

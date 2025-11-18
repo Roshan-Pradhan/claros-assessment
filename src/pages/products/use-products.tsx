@@ -1,8 +1,10 @@
 import { useState, useCallback } from "react";
-import { useDebounce } from "../../hooks/use-debounce";
 import { useQuery } from "@tanstack/react-query";
-import api from "../../api";
-import type { ProductsType, SortOrder } from "./products.types";
+import type { ProductsApiResponse, SortOrder } from "./products.types";
+import { useDebounce } from "@/hooks/use-debounce";
+import api from "@/api";
+import type { AxiosError } from "axios";
+import { getErrorMessage } from "@/utils/get-error-message";
 
 export const useProducts = () => {
   const [sortBy, setSortBy] = useState("");
@@ -10,11 +12,10 @@ export const useProducts = () => {
 
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
-  const [total, setTotal] = useState(0);
 
   const { value, debouncedValue, handleValueChange } = useDebounce("", 500);
 
-  const fetchProducts = async (): Promise<ProductsType[]> => {
+  const fetchProducts = async (): Promise<ProductsApiResponse> => {
     const skip = page * limit;
 
     const params = new URLSearchParams({
@@ -28,12 +29,16 @@ export const useProducts = () => {
       ? `/products/search?q=${debouncedValue}&${params.toString()}`
       : `/products?${params.toString()}`;
 
-    const { data } = await api.get(url);
-    setTotal(data.total / limit);
-    return data.products;
+    try {
+      const { data } = await api.get<ProductsApiResponse>(url);
+      return data;
+    } catch (error) {
+      alert(getErrorMessage(error as AxiosError));
+      throw error;
+    }
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["products", page, limit, debouncedValue, sortBy, order],
     queryFn: fetchProducts,
   });
@@ -81,9 +86,8 @@ export const useProducts = () => {
   );
 
   return {
-    products: data ?? [],
+    products: data?.products ?? [],
     loading: isLoading,
-    error,
 
     // search
     value,
@@ -97,7 +101,7 @@ export const useProducts = () => {
     // pagination
     page,
     limit,
-    total,
+    total: Math.ceil((data?.total ?? 0) / limit),
     handlePageChange,
     handlePageSizeChange,
     handleGoToPage,

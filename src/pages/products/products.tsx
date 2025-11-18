@@ -1,13 +1,13 @@
 import { useMemo } from "react";
-import PageHeader from "../../components/page-header";
-import Pagination from "../../components/pagination";
-import ReactTable from "../../components/react-table";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   statusClassMap,
   type AvailabilityStatus,
   type ProductsType,
 } from "./products.types";
+import PageHeader from "@/components/page-header";
+import ReactTable from "@/components/react-table";
+import Pagination from "@/components/pagination";
 import { useProducts } from "./use-products";
 
 const Products = () => {
@@ -61,7 +61,7 @@ const Products = () => {
             value={value}
             onChange={handleValueChange}
             placeholder="Search by product name..."
-            className="w-64 rounded border px-3 py-2 shadow-sm focus:ring-1 focus:ring-primary-500 focus:outline-none"
+            className="input-focus w-64 rounded border px-3 py-2 shadow-sm"
           />
         </div>
         <ReactTable
