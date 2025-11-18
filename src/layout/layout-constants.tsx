@@ -15,7 +15,7 @@ export const SideBarMenu: SideBarMenuItem[] = [
     end: true,
   },
   {
-    path: "/about",
+    path: "/books",
     label: "Books",
     icon: <BookText size={20} />,
   },
