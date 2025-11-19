@@ -9,23 +9,13 @@ import PageHeader from "@/components/page-header";
 import ReactTable from "@/components/react-table";
 import Pagination from "@/components/pagination";
 import { useProducts } from "./use-products";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/store/store";
+import { resetSort, setPage } from "@/store/products-slice";
 
 const Products = () => {
-  const {
-    products,
-    total,
-    page,
-    limit,
-    value,
-    sortBy,
-    order,
-    loading,
-    toggleSort,
-    handlePageChange,
-    handlePageSizeChange,
-    handleGoToPage,
-    handleValueChange,
-  } = useProducts();
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, total, value, loading, handleValueChange } = useProducts();
 
   const columns = useMemo<ColumnDef<ProductsType>[]>(
     () => [
@@ -59,27 +49,17 @@ const Products = () => {
           <input
             type="text"
             value={value}
-            onChange={handleValueChange}
+            onChange={(e) => {
+              dispatch(setPage(0));
+              dispatch(resetSort());
+              handleValueChange(e);
+            }}
             placeholder="Search by product name..."
             className="input-focus w-64 rounded border px-3 py-2 shadow-sm"
           />
         </div>
-        <ReactTable
-          data={products}
-          columns={columns}
-          sortBy={sortBy}
-          order={order}
-          onSort={toggleSort}
-          loading={loading}
-        />
-        <Pagination
-          totalPageCount={total}
-          onPageChange={handlePageChange}
-          forcePage={page}
-          pageSize={limit}
-          onPageSizeChange={handlePageSizeChange}
-          goToPage={handleGoToPage}
-        />
+        <ReactTable data={products} columns={columns} loading={loading} />
+        <Pagination totalPageCount={total} />
       </div>
     </div>
   );
