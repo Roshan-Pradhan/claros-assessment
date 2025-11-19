@@ -1,3 +1,4 @@
+import Loader from "@/components/loader";
 import LayoutWrapper from "@/layout/layout-wrapper";
 import Home from "@/pages/home/home";
 import Products from "@/pages/products/products";
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
 
 const AppRouter = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <RouterProvider router={router} />
     </Suspense>
   );

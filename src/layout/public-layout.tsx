@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { SideBarMenu } from "./layout-constants";
@@ -7,9 +7,9 @@ import { SidebarLink } from "@/components/sidebarlink";
 const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleSidebarClose = useCallback(() => {
+  const handleSidebarClose = () => {
     setIsSidebarOpen(false);
-  }, []);
+  };
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
