@@ -1,14 +1,14 @@
 import type { SortOrder } from "@/pages/products/products.types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface ProductsState {
+export interface ProductsState {
   page: number;
   limit: number;
   sortBy: string;
   order: SortOrder;
 }
 
-const initialState: ProductsState = {
+export const initialState: ProductsState = {
   page: 0,
   limit: 10,
   sortBy: "",
