@@ -25,7 +25,7 @@ const Products = () => {
         header: "Brand",
         cell: (props) => props.getValue() || "-",
       },
-      { accessorKey: "price", header: "Price" },
+      { accessorKey: "price", header: "Price ($)" },
       { accessorKey: "stock", header: "Stock" },
       { accessorKey: "rating", header: "Rating" },
       {
