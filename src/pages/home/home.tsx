@@ -16,7 +16,10 @@ const Home = () => {
       </p>
 
       <Link to="/products">
-        <button className="flex cursor-pointer items-center gap-2 rounded bg-primary-500 px-6 py-3 text-lg font-medium text-white shadow-md transition hover:shadow-lg">
+        <button
+          data-testid="browse-products"
+          className="flex cursor-pointer items-center gap-2 rounded bg-primary-500 px-6 py-3 text-lg font-medium text-white shadow-md transition hover:shadow-lg"
+        >
           Browse Products <ArrowRight size={20} />
         </button>
       </Link>

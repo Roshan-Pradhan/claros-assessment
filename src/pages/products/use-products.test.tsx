@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { useProducts } from "./use-products";
-import { testWrapper } from "@/utils/test-utils";
+import { providerWrapper } from "@/utils/test-utils";
 import api from "@/api";
 import type { ProductsApiResponse } from "./products.types";
 import { vi } from "vitest";
@@ -47,7 +47,7 @@ describe("Given useProducts", () => {
       vi.mocked(api.get).mockResolvedValueOnce({ data: mockProducts });
 
       const { result } = renderHook(() => useProducts(), {
-        wrapper: testWrapper,
+        wrapper: providerWrapper,
       });
       await waitFor(() => {
         expect(result.current.loading).toBe(false);
@@ -62,7 +62,7 @@ describe("Given useProducts", () => {
       vi.mocked(api.get).mockResolvedValueOnce({ data: mockProducts });
 
       renderHook(() => useProducts(), {
-        wrapper: testWrapper,
+        wrapper: providerWrapper,
       });
 
       await waitFor(() => {
@@ -78,7 +78,7 @@ describe("Given useProducts", () => {
       vi.mocked(api.get).mockResolvedValueOnce({ data: mockProducts });
 
       const { result } = renderHook(() => useProducts(), {
-        wrapper: testWrapper,
+        wrapper: providerWrapper,
       });
 
       act(() => {
@@ -108,7 +108,7 @@ describe("Given useProducts", () => {
         .mockImplementation(() => {});
 
       renderHook(() => useProducts(), {
-        wrapper: testWrapper,
+        wrapper: providerWrapper,
       });
 
       await waitFor(() => {
@@ -131,7 +131,7 @@ describe("Given useProducts", () => {
       vi.mocked(api.get).mockResolvedValueOnce({ data: emptyResponse });
 
       const { result } = renderHook(() => useProducts(), {
-        wrapper: testWrapper,
+        wrapper: providerWrapper,
       });
 
       await waitFor(() => {
