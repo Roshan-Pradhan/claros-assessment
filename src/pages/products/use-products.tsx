@@ -1,17 +1,16 @@
-import { useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { ProductsApiResponse, SortOrder } from "./products.types";
+import type { ProductsApiResponse } from "./products.types";
 import { useDebounce } from "@/hooks/use-debounce";
 import api from "@/api";
 import type { AxiosError } from "axios";
 import { getErrorMessage } from "@/utils/get-error-message";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 export const useProducts = () => {
-  const [sortBy, setSortBy] = useState("");
-  const [order, setOrder] = useState<SortOrder>("");
-
-  const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const { page, limit, sortBy, order } = useSelector(
+    (state: RootState) => state.productsState,
+  );
 
   const { value, debouncedValue, handleValueChange } = useDebounce("", 500);
 
@@ -43,67 +42,11 @@ export const useProducts = () => {
     queryFn: fetchProducts,
   });
 
-  const toggleSort = (field: string) => {
-    if (sortBy === field) {
-      setOrder(order === "asc" ? "desc" : "asc");
-    } else {
-      setSortBy(field);
-      setOrder("asc");
-    }
-  };
-
-  const resetOrderAndSortBy = useCallback(() => {
-    if (sortBy || order) {
-      setSortBy("");
-      setOrder("");
-    }
-  }, [sortBy, order]);
-
-  const handlePageChange = useCallback(
-    (selectedItem: { selected: number }) => {
-      const newPage = selectedItem.selected;
-      setPage(newPage);
-      resetOrderAndSortBy();
-    },
-    [resetOrderAndSortBy],
-  );
-
-  const handlePageSizeChange = useCallback(
-    (size: number) => {
-      setLimit(size);
-      setPage(0);
-      resetOrderAndSortBy();
-    },
-    [resetOrderAndSortBy],
-  );
-
-  const handleGoToPage = useCallback(
-    (page: number) => {
-      setPage(page);
-      resetOrderAndSortBy();
-    },
-    [resetOrderAndSortBy],
-  );
-
   return {
     products: data?.products ?? [],
     loading: isLoading,
-
-    // search
     value,
     handleValueChange,
-
-    // sorting
-    sortBy,
-    order,
-    toggleSort,
-
-    // pagination
-    page,
-    limit,
-    total: Math.ceil((data?.total ?? 0) / limit),
-    handlePageChange,
-    handlePageSizeChange,
-    handleGoToPage,
+    total: Math.ceil((data?.total ?? 100) / limit),
   };
 };

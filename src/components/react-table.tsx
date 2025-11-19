@@ -1,3 +1,5 @@
+import { toggleSort } from "@/store/products-slice";
+import type { AppDispatch, RootState } from "@/store/store";
 import {
   flexRender,
   getCoreRowModel,
@@ -5,24 +7,20 @@ import {
   type ColumnDef,
 } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
 type ReactTableProps<T> = {
   data: T[];
   columns: ColumnDef<T>[];
-  sortBy?: string;
-  order: "asc" | "desc" | "";
-  onSort?: (field: string) => void;
   loading?: boolean;
 };
 
-const ReactTable = <T,>({
-  data,
-  columns,
-  sortBy,
-  order,
-  onSort,
-  loading,
-}: ReactTableProps<T>) => {
+const ReactTable = <T,>({ data, columns, loading }: ReactTableProps<T>) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { sortBy, order } = useSelector(
+    (state: RootState) => state.productsState,
+  );
+
   const table = useReactTable({
     data,
     columns,
@@ -46,7 +44,7 @@ const ReactTable = <T,>({
                     {header.column.getCanSort() ? (
                       <button
                         className="flex cursor-pointer items-center gap-1 select-none"
-                        onClick={() => onSort && onSort(header.column.id)}
+                        onClick={() => dispatch(toggleSort(header.column.id))}
                       >
                         {flexRender(
                           header.column.columnDef.header,
@@ -85,7 +83,7 @@ const ReactTable = <T,>({
                       key={cellIndex}
                       className="px-4 py-2 text-sm whitespace-nowrap"
                     >
-                      <div className="h-4 w-24 rounded bg-gray-200" />
+                      <div className="h-4 min-w-24 rounded bg-gray-200 lg:min-w-42" />
                     </td>
                   ))}
                 </tr>
