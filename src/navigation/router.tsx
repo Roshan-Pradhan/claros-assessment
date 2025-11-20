@@ -1,3 +1,4 @@
+import NotFound from "@/components/not-found";
 import LayoutWrapper from "@/layout/layout-wrapper";
 import Home from "@/pages/home/home";
 import Products from "@/pages/products/products";
@@ -20,6 +21,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <div>404 Not Found</div>,
+    element: <NotFound />,
   },
 ]);

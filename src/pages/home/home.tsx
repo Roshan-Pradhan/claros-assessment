@@ -24,7 +24,7 @@ const Home = () => {
         </button>
       </Link>
 
-      <div className="mt-16 grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="mt-16 grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <TextCard
           title="Quality Assured"
           description="Every product goes through strict quality checks to ensure only the best
